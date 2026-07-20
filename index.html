@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Lotus that is Soham</title>
+<meta name="description" content="Essays, research, projects and poems by Soham.">
+<meta name="theme-color" content="#f3f2f2">
+<link rel="icon" href="lotus-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS — from the Broadsheet system, navy chrome (direction 4a)
+   ============================================================ */
+:root{
+  --paper:#f3f2f2;
+  --ink:#1a2b4a;
+  --body:#2a3342;
+  --mut:rgba(26,43,74,.6);
+  --hair:rgba(26,43,74,.16);
+  --gold:#a9782e;
+  --tint:rgba(26,43,74,.035);
+
+  --illo-blend:multiply;
+  --illo-filter:none;
+  --illo-op:.92;
+
+  --pad:40px;
+  --serif:"Source Serif 4", Georgia, serif;
+}
+
+html[data-theme="dark"]{
+  --paper:#12161f;
+  --ink:#e7e9ee;
+  --body:#c3c8d4;
+  --mut:rgba(231,233,238,.55);
+  --hair:rgba(231,233,238,.16);
+  --gold:#d6a860;
+  --tint:rgba(231,233,238,.04);
+
+  /* line art on white becomes light line art on dark */
+  --illo-blend:screen;
+  --illo-filter:invert(1) brightness(1.55) contrast(.92);
+  --illo-op:.82;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--body);
+  font-family:var(--serif);
+  font-size:17px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  transition:background .3s ease, color .3s ease;
+}
+a{color:inherit}
+img{max-width:100%}
+::selection{background:rgba(169,120,46,.25)}
+
+.shell{max-width:1100px; margin:0 auto; border-left:1px solid var(--hair); border-right:1px solid var(--hair); min-height:100vh}
+@media (max-width:1140px){ .shell{border-left:0; border-right:0} }
+
+/* ============================================================
+   NAV — mark only, links centred, utilities right
+   ============================================================ */
+.nav{
+  display:grid; grid-template-columns:1fr auto 1fr; align-items:center;
+  padding:15px var(--pad); border-bottom:1px solid var(--hair);
+  position:sticky; top:0; z-index:20;
+  background:var(--paper);
+}
+.brand{justify-self:start; display:flex; line-height:0}
+.brand img{
+  height:42px; width:auto;
+  mix-blend-mode:var(--illo-blend); filter:var(--illo-filter);
+}
+.links{justify-self:center; display:flex; gap:26px}
+.links a{
+  font-size:15px; color:var(--mut); text-decoration:none;
+  padding-bottom:2px; border-bottom:2px solid transparent;
+  transition:color .18s ease, border-color .18s ease;
+}
+.links a:hover{color:var(--ink)}
+.links a.on{color:var(--ink); border-bottom-color:var(--gold)}
+.util{justify-self:end; display:flex; gap:18px; align-items:center}
+.ic{
+  color:var(--ink); font-size:16px; line-height:1; text-decoration:none;
+  background:none; border:0; padding:0; cursor:pointer; font-family:inherit;
+}
+.ic:hover{color:var(--gold)}
+.ic:focus-visible, .links a:focus-visible, .brand:focus-visible{
+  outline:2px solid var(--gold); outline-offset:3px
+}
+
+/* search field slides open under the nav */
+.searchbar{
+  border-bottom:1px solid var(--hair); padding:0 var(--pad);
+  max-height:0; overflow:hidden; transition:max-height .25s ease;
+}
+.searchbar.open{max-height:70px}
+.searchbar input{
+  width:100%; border:0; background:none; outline:none;
+  font-family:var(--serif); font-size:19px; color:var(--ink);
+  padding:16px 0;
+}
+.searchbar input::placeholder{color:var(--mut)}
+
+/* ============================================================
+   HERO — the illustration bleeds off the right edge
+   ============================================================ */
+.hero{position:relative; overflow:hidden; min-height:388px; display:flex; align-items:center}
+.hero .art{
+  position:absolute; top:0; right:0; height:100%; width:50%;
+  object-fit:cover; object-position:50% 8%;
+  mix-blend-mode:var(--illo-blend); filter:var(--illo-filter);
+  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 46%);
+  mask-image:linear-gradient(to right,transparent 0,#000 46%);
+  pointer-events:none;
+}
+.hero .copy{position:relative; padding:52px var(--pad) 44px; max-width:60%}
+
+.kick{
+  display:block; font-size:12.5px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--gold); margin:0 0 14px;
+}
+h1{
+  font-family:var(--serif); font-weight:700; letter-spacing:-.025em;
+  color:var(--ink); margin:0; font-size:52px; line-height:1.02;
+}
+.hero p{
+  font-style:italic; font-size:19px; line-height:1.5; color:var(--body);
+  margin:18px 0 0; max-width:38ch;
+}
+
+/* ============================================================
+   ROOMS — 2 x 2
+   ============================================================ */
+.rooms{border-top:1px solid var(--hair); display:grid; grid-template-columns:1fr 1fr}
+.room{padding:24px var(--pad) 26px; border-bottom:1px solid var(--hair)}
+.room:nth-child(odd){border-right:1px solid var(--hair)}
+.room:nth-child(3), .room:nth-child(4){border-bottom:0}
+
+.room-head{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:14px}
+.room-head .kick{margin:0}
+.room-head .count{font-size:12.5px; color:var(--mut)}
+
+/* ============================================================
+   ENTRIES + ILLUSTRATIONS
+   ------------------------------------------------------------
+   Three ways to place art. None of them puts the image in a box.
+
+   1. MARGIN MARK — a small motif in the left margin of an entry
+      <a class="entry" href="...">
+        <img class="illo" src="m-bud.png" alt="">
+        <span class="t">Title</span>
+      </a>
+
+   2. BLEED — a larger illustration that the text wraps around,
+      floated right with no frame
+      <a class="entry bleed" href="...">
+        <img class="illo lg" src="m-cloud.png" alt="">
+        <span class="t">Title</span>
+        <span class="note">One line about it.</span>
+      </a>
+
+   3. RULE MOTIF — a motif that sits on the hairline between rooms
+      <img class="illo rule-motif" src="m-swirl.png" alt="">
+
+   Any PNG on a white ground works: multiply blend drops the white
+   into the paper, and in dark mode it inverts to light line art.
+   ============================================================ */
+.entry{
+  display:grid; grid-template-columns:auto minmax(0,1fr);
+  align-items:start; gap:14px;
+  text-decoration:none; padding:9px 0;
+  transition:padding-left .25s ease;
+}
+.entry + .entry{border-top:1px solid var(--tint)}
+.entry:hover{padding-left:6px}
+.entry:focus-visible{outline:2px solid var(--gold); outline-offset:4px}
+
+.illo{
+  width:46px; height:auto; align-self:center;
+  mix-blend-mode:var(--illo-blend);
+  filter:var(--illo-filter);
+  opacity:var(--illo-op);
+  transition:opacity .25s ease, transform .35s ease;
+  pointer-events:none;
+}
+.entry:hover .illo{opacity:1; transform:translateY(-2px)}
+.illo.lg{width:96px}
+.illo.sm{width:32px}
+
+/* entries with no art keep the same left edge */
+.entry.plain{grid-template-columns:minmax(0,1fr)}
+
+.t{
+  font-family:var(--serif); font-size:19px; line-height:1.35;
+  color:var(--ink); letter-spacing:-.01em; display:block;
+  transition:color .18s ease;
+}
+.entry:hover .t{color:var(--gold)}
+.room .poem .t{font-style:italic}
+.note{display:block; font-size:14.5px; line-height:1.45; color:var(--mut); margin-top:3px}
+
+/* bleed variant: art floats into the text */
+.entry.bleed{display:block}
+.entry.bleed .illo{
+  float:right; margin:0 0 6px 16px; shape-outside:circle(50%);
+}
+
+/* a motif sitting on a rule, not in a box */
+.rule-motif{
+  display:block; width:64px; margin:0 auto; opacity:.5;
+  mix-blend-mode:var(--illo-blend); filter:var(--illo-filter);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.foot{
+  border-top:1px solid var(--hair);
+  padding:22px var(--pad) 30px;
+  display:flex; flex-wrap:wrap; gap:16px 26px;
+  align-items:center; justify-content:space-between;
+  font-size:13px; letter-spacing:.04em; text-transform:uppercase; color:var(--mut);
+}
+.foot a{color:var(--mut); text-decoration:none}
+.foot a:hover{color:var(--gold)}
+.foot .marks{display:flex; gap:14px; align-items:center}
+.foot .marks img{
+  width:22px; opacity:.45;
+  mix-blend-mode:var(--illo-blend); filter:var(--illo-filter);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:900px){
+  :root{--pad:26px}
+  h1{font-size:40px}
+  .hero{min-height:0; display:block}
+  .hero .art{
+    position:relative; width:76%; height:auto; margin:0 0 -18px auto; display:block;
+    -webkit-mask-image:linear-gradient(to bottom,#000 72%,transparent 100%);
+    mask-image:linear-gradient(to bottom,#000 72%,transparent 100%);
+  }
+  .hero .copy{max-width:100%; padding:8px var(--pad) 34px}
+  .hero p{max-width:100%}
+  .rooms{grid-template-columns:1fr}
+  .room{border-right:0 !important; border-bottom:1px solid var(--hair)}
+  .room:last-child{border-bottom:0}
+}
+
+@media (max-width:640px){
+  body{font-size:16px}
+  h1{font-size:32px; letter-spacing:-.02em}
+  .nav{grid-template-columns:auto 1fr; gap:12px; padding:12px var(--pad)}
+  .brand img{height:34px}
+  .links{
+    grid-column:1 / -1; justify-self:start; flex-wrap:wrap; gap:18px;
+    padding-top:10px; margin-top:10px; border-top:1px solid var(--hair); width:100%;
+  }
+  .util{grid-column:2; justify-self:end}
+  .hero p{font-size:17px}
+  .t{font-size:17.5px}
+  .illo{width:38px}
+  .illo.lg{width:72px}
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <nav class="nav">
+    <a class="brand" href="#top" title="lotus.sohamn.in">
+      <img src="lotus-logo.png" alt="Lotus">
+    </a>
+    <div class="links">
+      <a class="on" href="#essays">Essays</a>
+      <a href="#research">Research</a>
+      <a href="#projects">Projects</a>
+      <a href="#poems">Poems</a>
+    </div>
+    <div class="util">
+      <button class="ic" id="searchBtn" aria-label="Search" aria-expanded="false">&#8981;</button>
+      <button class="ic" id="themeBtn" aria-label="Switch to dark">&#9790;</button>
+    </div>
+  </nav>
+
+  <div class="searchbar" id="searchbar">
+    <input id="q" type="search" placeholder="Search everything…" aria-label="Search entries">
+  </div>
+
+  <header class="hero" id="top">
+    <img class="art" src="lotus-navy.png" alt="A lotus held in an open hand">
+    <div class="copy">
+      <span class="kick">Lotus · Soham</span>
+      <h1>The Lotus that is Soham</h1>
+      <p>A student in constant bloom — absorbing the waters, rooted all the same. Essays, research, notes and the occasional verse.</p>
+    </div>
+  </header>
+
+  <div class="rooms">
+
+    <section class="room" id="essays">
+      <div class="room-head"><span class="kick">Essays</span><span class="count">12</span></div>
+
+      <a class="entry" href="#">
+        <img class="illo" src="m-swirl.png" alt="">
+        <span>
+          <span class="t">The playbook of the state for the young revolutionary inside you</span>
+          <span class="note">On how power teaches its own opposition to behave.</span>
+        </span>
+      </a>
+
+      <a class="entry" href="#">
+        <img class="illo" src="m-cloud.png" alt="">
+        <span>
+          <span class="t">Bengal ka julus aur Delhi ki tanashahi</span>
+          <span class="note">A procession in one city, a decree in another.</span>
+        </span>
+      </a>
+
+      <a class="entry plain" href="#">
+        <span>
+          <span class="t">Begumpura, and the cities we did not build</span>
+          <span class="note">Ravidas imagined a city without sorrow or tax, five centuries early.</span>
+        </span>
+      </a>
+    </section>
+
+    <section class="room" id="research">
+      <div class="room-head"><span class="kick">Research</span><span class="count">7</span></div>
+
+      <a class="entry" href="#">
+        <img class="illo" src="m-bud.png" alt="">
+        <span>
+          <span class="t">Solar isn't the future, it's the present</span>
+          <span class="note">Open-access economics, and who actually captures the margin.</span>
+        </span>
+      </a>
+
+      <a class="entry" href="#">
+        <img class="illo" src="m-cuff.png" alt="">
+        <span>
+          <span class="t">Building SaaS for the informal sector</span>
+          <span class="note">What software has to give up to be useful to a ten-machine fleet.</span>
+        </span>
+      </a>
+    </section>
+
+    <section class="room" id="projects">
+      <div class="room-head"><span class="kick">Projects</span><span class="count">4</span></div>
+
+      <a class="entry bleed" href="#">
+        <img class="illo lg" src="m-cloud.png" alt="">
+        <span class="t">Crane Tracker</span>
+        <span class="note">Fleet management for small crane operators — per-asset profitability, EMI schedules, document expiry. Live, and in daily use.</span>
+      </a>
+
+      <a class="entry plain" href="#">
+        <span>
+          <span class="t">Phaltan solar, 25 years</span>
+          <span class="note">A financial model for open-access generation on land in Satara.</span>
+        </span>
+      </a>
+    </section>
+
+    <section class="room poem" id="poems">
+      <div class="room-head"><span class="kick">Poems</span><span class="count">9</span></div>
+
+      <a class="entry" href="#">
+        <img class="illo sm" src="m-bud.png" alt="">
+        <span class="t">Notes from muddy water</span>
+      </a>
+
+      <a class="entry" href="#">
+        <img class="illo sm" src="m-swirl.png" alt="">
+        <span class="t">On rooting and reaching</span>
+      </a>
+
+      <a class="entry plain" href="#">
+        <span class="t">What the pond keeps</span>
+      </a>
+    </section>
+
+  </div>
+
+  <footer class="foot">
+    <span>lotus.sohamn.in · Navi Mumbai</span>
+    <div class="marks">
+      <img src="m-swirl.png" alt="">
+      <img src="m-bud.png" alt="">
+      <img src="m-cloud.png" alt="">
+    </div>
+    <a href="mailto:hello@sohamn.in">hello@sohamn.in</a>
+  </footer>
+
+</div>
+
+<script>
+/* theme -------------------------------------------------- */
+(function(){
+  var root = document.documentElement, btn = document.getElementById('themeBtn');
+  function set(t){
+    root.setAttribute('data-theme', t);
+    btn.innerHTML = t === 'dark' ? '&#9728;' : '&#9790;';
+    btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light' : 'Switch to dark');
+    document.querySelector('meta[name=theme-color]')
+      .setAttribute('content', t === 'dark' ? '#12161f' : '#f3f2f2');
+  }
+  if (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) set('dark');
+  btn.addEventListener('click', function(){
+    set(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+})();
+
+/* search ------------------------------------------------- */
+(function(){
+  var bar = document.getElementById('searchbar'),
+      btn = document.getElementById('searchBtn'),
+      q   = document.getElementById('q');
+
+  btn.addEventListener('click', function(){
+    var open = bar.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+    if (open) q.focus(); else { q.value = ''; filter(''); }
+  });
+
+  function filter(term){
+    term = term.trim().toLowerCase();
+    document.querySelectorAll('.room').forEach(function(room){
+      var shown = 0;
+      room.querySelectorAll('.entry').forEach(function(e){
+        var hit = !term || e.textContent.toLowerCase().indexOf(term) > -1;
+        e.style.display = hit ? '' : 'none';
+        if (hit) shown++;
+      });
+      room.style.opacity = shown ? '' : '.35';
+    });
+  }
+  q.addEventListener('input', function(){ filter(q.value); });
+  q.addEventListener('keydown', function(e){ if (e.key === 'Escape') btn.click(); });
+})();
+
+/* mark the section you're in ----------------------------- */
+(function(){
+  var links = [].slice.call(document.querySelectorAll('.links a')), map = {};
+  links.forEach(function(a){ map[a.getAttribute('href').slice(1)] = a; });
+  var obs = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if (e.isIntersecting && map[e.target.id]){
+        links.forEach(function(a){ a.classList.remove('on'); });
+        map[e.target.id].classList.add('on');
+      }
+    });
+  }, {rootMargin:'-20% 0px -60% 0px'});
+  document.querySelectorAll('.room').forEach(function(s){ obs.observe(s); });
+})();
+</script>
+
+</body>
+</html>
